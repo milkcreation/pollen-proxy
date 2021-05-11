@@ -4,37 +4,38 @@ declare(strict_types=1);
 
 namespace Pollen\Proxy\Proxies;
 
+use Closure;
+use Pollen\Metabox\MetaboxContextInterface;
+use Pollen\Metabox\MetaboxDriverInterface;
+use Pollen\Metabox\MetaboxManagerInterface;
+use Pollen\Metabox\MetaboxScreenInterface;
 use Pollen\Proxy\AbstractProxy;
-use tiFy\Metabox\Contracts\MetaboxContract;
-use tiFy\Metabox\MetaboxContextInterface;
-use tiFy\Metabox\MetaboxDriverInterface;
-use tiFy\Metabox\MetaboxScreenInterface;
 
 /**
- * @method static MetaboxDriverInterface add(string $alias, string|array|MetaboxDriverInterface|null $driverDefinition = null, string|null $screen = null, string|null $context = null)
- * @method static MetaboxContextInterface addContext(string $alias, string|array|MetaboxContextInterface $contextDefinition)
- * @method static MetaboxDriverInterface addDriver(string $alias, string|array|MetaboxDriverInterface|null $driverDefinition = null, string|null $screen = null, string|null $context = null)
- * @method static MetaboxScreenInterface addScreen(string $alias, string|array|MetaboxScreenInterface $screenDefinition)
- * @method static mixed config(string|array|null $key = null, $default = null)
- * @method static MetaboxDriverInterface|null get(string $alias)
- * @method static MetaboxContextInterface|null getContext(string $alias)
- * @method static MetaboxDriverInterface|null getDriver(string $alias)
- * @method static MetaboxScreenInterface|null getScreen(string $alias)
- * @method static MetaboxContract register(string $alias, string|array|MetaboxDriverInterface $driverDefinition)
- * @method static MetaboxContract registerContext(string $alias, string|array|MetaboxContextInterface $contextDefinition)
- * @method static MetaboxContract registerDriver(string $alias, string|array|MetaboxDriverInterface $driverDefinition)
- * @method static MetaboxContract registerScreen(string $alias, string|array|MetaboxScreenInterface $screenDefinition)
- * @method static string render(string $context)
- * @method static MetaboxContract stack(string $screen, string $context, string[][]|array[][]|MetaboxDriverInterface[][] $driversDefinitions)
+ * @method static MetaboxManagerInterface add(string $alias, string|array|MetaboxDriverInterface|Closure $driverDefinition, string $screen, string $context)
+ * @method static MetaboxDriverInterface[] all()
+ * @method static MetaboxManagerInterface dispatch(string|null $screenAlias = null)
+ * @method static MetaboxContextInterface getContext(string $alias)
+ * @method static MetaboxScreenInterface getScreen(string $alias)
+ * @method static string|null getXhrRouteUrl(string $metabox, string|null $controller = null, array $params = [])
+ * @method static bool hasScreen(string $alias)
+ * @method static MetaboxManagerInterface registerContext(string $alias, string|array|MetaboxContextInterface|null $contextDefinition = null)
+ * @method static MetaboxManagerInterface registerDriver(string $alias, string|array|MetaboxDriverInterface|null $driverDefinition = null)
+ * @method static MetaboxManagerInterface registerScreen(string $alias, string|array|MetaboxScreenInterface|null $screenDefinition = null)
+ * @method static MetaboxManagerInterface setBaseContext(string $baseContext)
+ * @method static MetaboxManagerInterface setBaseDriver(string $baseDriver)
+ * @method static MetaboxManagerInterface setBaseScreen(string $baseScreen)
+ * @method static MetaboxManagerInterface setCurrentScreen(string $screen)
+ * @method static MetaboxManagerInterface stack(string $screen, string $context, string[][]|array[][]|MetaboxDriverInterface[][] $driversDefinitions)
  */
 class Metabox extends AbstractProxy
 {
     /**
      * {@inheritDoc}
      *
-     * @return mixed|object|MetaboxContract
+     * @return MetaboxManagerInterface
      */
-    public static function getInstance()
+    public static function getInstance(): MetaboxManagerInterface
     {
         return parent::getInstance();
     }
@@ -44,6 +45,6 @@ class Metabox extends AbstractProxy
      */
     public static function getInstanceIdentifier(): string
     {
-        return MetaboxContract::class;
+        return MetaboxManagerInterface::class;
     }
 }
