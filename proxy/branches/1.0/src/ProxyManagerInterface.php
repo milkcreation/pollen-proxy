@@ -12,5 +12,4 @@ use ReStatic\ProxyManager as BaseProxyManager;
  */
 interface ProxyManagerInterface extends ConfigBagAwareTraitInterface
 {
-
 }
