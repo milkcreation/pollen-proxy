@@ -14,10 +14,10 @@ class ProxyManager extends BaseProxyManager implements ProxyManagerInterface
     use ConfigBagAwareTrait;
 
     /**
-     * Instance principale.
+     * Proxy Manager main instance.
      * @var static|null
      */
-    private static $instance;
+    private static ?ProxyManagerInterface $instance = null;
 
     /**
      * @param array $config
@@ -35,7 +35,7 @@ class ProxyManager extends BaseProxyManager implements ProxyManagerInterface
     }
 
     /**
-     * Récupération de l'instance principale.
+     * Get Proxy Manager main instance.
      *
      * @return static
      */

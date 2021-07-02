@@ -8,5 +8,4 @@ use ReStatic\StaticProxy;
 
 abstract class AbstractProxy extends StaticProxy
 {
-
 }
